@@ -1,20 +1,20 @@
 package com.wmazoni.costumer.services;
 
-import com.wmazoni.costumer.dto.ClientDTO;
-import com.wmazoni.costumer.entities.Client;
-import com.wmazoni.costumer.repositories.ClientRepository;
-import com.wmazoni.costumer.services.exceptions.DatabaseException;
-import com.wmazoni.costumer.services.exceptions.ResourceNotFoundException;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
+import com.wmazoni.costumer.dto.ClientDTO;
+import com.wmazoni.costumer.entities.Client;
+import com.wmazoni.costumer.repositories.ClientRepository;
+import com.wmazoni.costumer.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ClientService {
@@ -62,9 +62,7 @@ public class ClientService {
         catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Id not found ");
         }
-        catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Integrity violation");
-        }
+
     }
 
     private void copyDTOToEntity(ClientDTO dto, Client entity) {
